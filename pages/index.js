@@ -206,7 +206,7 @@ export default function Home({ files }) {
                     </li>
                   ))}
                 </ul>
-                <a href="https://github.com/readmeio/petstore.dev" className="block pt-5 border-t border-gray-200 pl-3 text-sm text-gray-500 hover:text-indigo-600">
+                <a href="https://github.com/readmeio/petstore.dev/tree/main/oas" className="block pt-5 border-t border-gray-200 pl-3 text-sm text-gray-500 hover:text-indigo-600">
                   Edit specs on GitHub
                 </a>
               </form>
