@@ -50,7 +50,7 @@ export default function Home({ files }) {
   const [format, setFormat] = useState("json");
 
   const updateVersion = (tab) => {
-    console.log(tab, files['3.1']);
+    console.log(tab, files["3.1"]);
     setVersion(tab);
     setFile(files[tab.version][0]);
   };
@@ -78,6 +78,10 @@ export default function Home({ files }) {
       <Head>
         <title>Swagger Petstore</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta
+          property="og:image"
+          content="https://www.petstore.dev/public/social.png"
+        />
         <link rel="shortcut icon" href="https://fav.farm/%F0%9F%90%B6" />
       </Head>
       <div>
@@ -451,8 +455,14 @@ export async function getStaticProps(context) {
         };
       });
 
-    const sortList = arr => {
-      const sortOrder = {"petstore": 1, "petstore-simple": 2, "petstore-minimal": 3, "petstore-expanded": 4, "readme-extensions": 5};
+    const sortList = (arr) => {
+      const sortOrder = {
+        petstore: 1,
+        "petstore-simple": 2,
+        "petstore-minimal": 3,
+        "petstore-expanded": 4,
+        "readme-extensions": 5,
+      };
       return arr.sort(function compareFn(a, b) {
         const aScore = sortOrder[a.file] || a.yaml.length;
         const bScore = sortOrder[b.file] || a.yaml.length;
