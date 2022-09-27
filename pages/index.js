@@ -122,7 +122,7 @@ export default function Home({ files }) {
         </Transition.Root>
 
         <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-baseline justify-between pt-24">
+          <div className="flex items-baseline justify-between pt-14">
             <div className="flex items-center">
               <Menu as="div" className="relative inline-block text-left">
                 <div></div>
