@@ -197,7 +197,7 @@ export default function Home({ files }) {
                         href="#"
                         onClick={() => setFile(f)}
                         className={classNames(
-                          f.name === file.name ? "bg-indigo-50" : "",
+                          f.name === file.name ? "bg-indigo-50 text-indigo-500" : "",
                           "rounded-md block px-3 py-2"
                         )}
                       >
@@ -237,7 +237,7 @@ export default function Home({ files }) {
                         <svg
                           className={classNames(
                             format === "json"
-                              ? "fill-sky-500"
+                              ? "fill-indigo-300"
                               : "fill-slate-300",
                             "h-5 w-5 flex-none"
                           )}
@@ -275,7 +275,7 @@ export default function Home({ files }) {
                         <svg
                           className={classNames(
                             format === "yaml"
-                              ? "fill-sky-500"
+                              ? "fill-indigo-300"
                               : "fill-slate-300",
                             "h-5 w-5 flex-none"
                           )}
