@@ -27,7 +27,12 @@ import "prismjs/components/prism-yaml";
 */
 import { Fragment, useState, useEffect } from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
-import { XMarkIcon, BuildingStorefrontIcon } from "@heroicons/react/24/outline";
+import {
+  XMarkIcon,
+  BuildingStorefrontIcon,
+  LinkIcon,
+  CommandLineIcon,
+} from "@heroicons/react/24/outline";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -144,7 +149,9 @@ export default function Home({ files }) {
                     <BuildingStorefrontIcon className="inline-block mr-3 h-11 mb-3" />
                     Petstore
                   </h1>
-                  <span className="text-gray-600 text-sm display block">A collection of OAS example files</span>
+                  <span className="text-gray-600 text-sm display block">
+                    A collection of OAS example files
+                  </span>
                 </div>
 
                 <div>
@@ -222,95 +229,115 @@ export default function Home({ files }) {
                 {/* Replace with your content */}
                 <pre className="mt-3 rounded-b-lg text-sm leading-[1.5714285714] text-white sm:rounded-t-lg bg-[#1e293b]">
                   <div className="float-right p-3">
-                    <div
-                      className="flex space-x-1 rounded-lg bg-slate-600 p-0.5"
-                      role="tablist"
-                      aria-orientation="horizontal"
+                    {version.version !== "2.0" && (
+                      <a
+                        href={`https://bin.readme.com/?url=${encodeURIComponent(
+                          `https://raw.githubusercontent.com/readmeio/petstore.dev/main/oas/${version.version}/${file.file}.${format}`
+                        )}`}
+                        target="_blank"
+                        className="inline-block mr-4 opacity-50 hover:opacity-100"
+                      >
+                        <CommandLineIcon className="w-5 text-white" />
+                      </a>
+                    )}
+                    <a
+                      href={`https://raw.githubusercontent.com/readmeio/petstore.dev/main/oas/${version.version}/${file.file}.${format}`}
+                      target="_blank"
+                      className="inline-block mr-4 opacity-50 hover:opacity-100"
                     >
-                      <button
-                        className={classNames(
-                          format === "json" ? "bg-white shadow" : "",
-                          "flex items-center rounded-md py-[0.4375rem] pl-2 pr-2 text-sm font-semibold lg:pr-3"
-                        )}
-                        id="headlessui-tabs-tab-2"
-                        role="tab"
-                        type="button"
-                        aria-selected="true"
-                        tabIndex="0"
-                        aria-controls="headlessui-tabs-panel-4"
-                        onClick={() => setFormat("json")}
+                      <LinkIcon className="w-5 text-white" />
+                    </a>
+                    <div className="inline-block">
+                      <div
+                        className="flex space-x-1 rounded-lg bg-slate-600 p-0.5"
+                        role="tablist"
+                        aria-orientation="horizontal"
                       >
-                        <svg
+                        <button
                           className={classNames(
-                            format === "json"
-                              ? "fill-indigo-300"
-                              : "fill-slate-300",
-                            "h-5 w-5 flex-none"
+                            format === "json" ? "bg-white shadow" : "",
+                            "flex items-center rounded-md py-[0.4375rem] pl-2 pr-2 text-sm font-semibold lg:pr-3"
                           )}
-                          viewBox="0 0 100 100"
-                          xmlns="http://www.w3.org/2000/svg"
+                          id="headlessui-tabs-tab-2"
+                          role="tab"
+                          type="button"
+                          aria-selected="true"
+                          tabIndex="0"
+                          aria-controls="headlessui-tabs-panel-4"
+                          onClick={() => setFormat("json")}
                         >
-                          <g>
-                            <path d="m26 58v8c0 6.6289 5.3711 12 12 12h4v-8h-4c-2.2109 0-4-1.7891-4-4v-8c0-2.957-1.0977-5.8047-3.0781-8 1.9805-2.1953 3.0781-5.043 3.0781-8v-8c0-2.2109 1.7891-4 4-4h4v-8h-4c-6.6289 0-12 5.3711-12 12v8c0 1.0625-0.42188 2.0781-1.1719 2.8281s-1.7656 1.1719-2.8281 1.1719h-4v8h4c1.0625 0 2.0781 0.42188 2.8281 1.1719s1.1719 1.7656 1.1719 2.8281z" />
-                            <path d="m74 42v-8c0-6.6289-5.3711-12-12-12h-4v8h4c1.0625 0 2.0781 0.42188 2.8281 1.1719s1.1719 1.7656 1.1719 2.8281v8c0 2.957 1.0977 5.8047 3.0781 8-1.9805 2.1953-3.0781 5.043-3.0781 8v8c0 1.0625-0.42188 2.0781-1.1719 2.8281s-1.7656 1.1719-2.8281 1.1719h-4v8h4c6.6289 0 12-5.3711 12-12v-8c0-2.2109 1.7891-4 4-4h4v-8h-4c-2.2109 0-4-1.7891-4-4z" />
-                          </g>
-                        </svg>
-                        <span
+                          <svg
+                            className={classNames(
+                              format === "json"
+                                ? "fill-indigo-300"
+                                : "fill-slate-300",
+                              "h-5 w-5 flex-none"
+                            )}
+                            viewBox="0 0 100 100"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g>
+                              <path d="m26 58v8c0 6.6289 5.3711 12 12 12h4v-8h-4c-2.2109 0-4-1.7891-4-4v-8c0-2.957-1.0977-5.8047-3.0781-8 1.9805-2.1953 3.0781-5.043 3.0781-8v-8c0-2.2109 1.7891-4 4-4h4v-8h-4c-6.6289 0-12 5.3711-12 12v8c0 1.0625-0.42188 2.0781-1.1719 2.8281s-1.7656 1.1719-2.8281 1.1719h-4v8h4c1.0625 0 2.0781 0.42188 2.8281 1.1719s1.1719 1.7656 1.1719 2.8281z" />
+                              <path d="m74 42v-8c0-6.6289-5.3711-12-12-12h-4v8h4c1.0625 0 2.0781 0.42188 2.8281 1.1719s1.1719 1.7656 1.1719 2.8281v8c0 2.957 1.0977 5.8047 3.0781 8-1.9805 2.1953-3.0781 5.043-3.0781 8v8c0 1.0625-0.42188 2.0781-1.1719 2.8281s-1.7656 1.1719-2.8281 1.1719h-4v8h4c6.6289 0 12-5.3711 12-12v-8c0-2.2109 1.7891-4 4-4h4v-8h-4c-2.2109 0-4-1.7891-4-4z" />
+                            </g>
+                          </svg>
+                          <span
+                            className={classNames(
+                              "sr-only lg:not-sr-only lg:ml-2",
+                              format === "json"
+                                ? "text-slate-700"
+                                : "text-slate-200"
+                            )}
+                          >
+                            JSON
+                          </span>
+                        </button>
+                        <button
                           className={classNames(
-                            "sr-only lg:not-sr-only lg:ml-2",
-                            format === "json"
-                              ? "text-slate-700"
-                              : "text-slate-200"
+                            format === "yaml" ? "bg-white shadow" : "",
+                            "flex items-center rounded-md py-[0.4375rem] pl-2 pr-2 text-sm font-semibold lg:pr-3"
                           )}
+                          id="headlessui-tabs-tab-3"
+                          role="tab"
+                          type="button"
+                          aria-selected="false"
+                          onClick={() => setFormat("yaml")}
+                          tabIndex="-1"
                         >
-                          JSON
-                        </span>
-                      </button>
-                      <button
-                        className={classNames(
-                          format === "yaml" ? "bg-white shadow" : "",
-                          "flex items-center rounded-md py-[0.4375rem] pl-2 pr-2 text-sm font-semibold lg:pr-3"
-                        )}
-                        id="headlessui-tabs-tab-3"
-                        role="tab"
-                        type="button"
-                        aria-selected="false"
-                        onClick={() => setFormat("yaml")}
-                        tabIndex="-1"
-                      >
-                        <svg
-                          className={classNames(
-                            format === "yaml"
-                              ? "fill-indigo-300"
-                              : "fill-slate-300",
-                            "h-5 w-5 flex-none"
-                          )}
-                          viewBox="0 0 100 100"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path d="m78 19h-28c-2.2109 0-4 1.7891-4 4s1.7891 4 4 4h28c2.2109 0 4-1.7891 4-4s-1.7891-4-4-4z" />
-                          <path d="m54 41c0-1.0625-0.42188-2.0781-1.1719-2.8281s-1.7656-1.1719-2.8281-1.1719h-28c-2.2109 0-4 1.7891-4 4s1.7891 4 4 4h28c1.0625 0 2.0781-0.42188 2.8281-1.1719s1.1719-1.7656 1.1719-2.8281z" />
-                          <path d="m50 73h-28c-2.2109 0-4 1.7891-4 4s1.7891 4 4 4h28c2.2109 0 4-1.7891 4-4s-1.7891-4-4-4z" />
-                          <path d="m78 55h-28c-2.2109 0-4 1.7891-4 4s1.7891 4 4 4h28c2.2109 0 4-1.7891 4-4s-1.7891-4-4-4z" />
-                          <path d="m78 73h-10c-2.2109 0-4 1.7891-4 4s1.7891 4 4 4h10c2.2109 0 4-1.7891 4-4s-1.7891-4-4-4z" />
-                          <path d="m22 55c-2.2109 0-4 1.7891-4 4s1.7891 4 4 4h10c2.2109 0 4-1.7891 4-4s-1.7891-4-4-4z" />
-                          <path d="m32 19h-10c-2.2109 0-4 1.7891-4 4s1.7891 4 4 4h10c2.2109 0 4-1.7891 4-4s-1.7891-4-4-4z" />
-                          <path d="m78 37h-10c-2.2109 0-4 1.7891-4 4s1.7891 4 4 4h10c2.2109 0 4-1.7891 4-4s-1.7891-4-4-4z" />
-                        </svg>
-                        <span
-                          className={classNames(
-                            "sr-only lg:not-sr-only lg:ml-2",
-                            format === "yaml"
-                              ? "text-slate-700"
-                              : "text-slate-200"
-                          )}
-                        >
-                          YAML
-                        </span>
-                      </button>
+                          <svg
+                            className={classNames(
+                              format === "yaml"
+                                ? "fill-indigo-300"
+                                : "fill-slate-300",
+                              "h-5 w-5 flex-none"
+                            )}
+                            viewBox="0 0 100 100"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="m78 19h-28c-2.2109 0-4 1.7891-4 4s1.7891 4 4 4h28c2.2109 0 4-1.7891 4-4s-1.7891-4-4-4z" />
+                            <path d="m54 41c0-1.0625-0.42188-2.0781-1.1719-2.8281s-1.7656-1.1719-2.8281-1.1719h-28c-2.2109 0-4 1.7891-4 4s1.7891 4 4 4h28c1.0625 0 2.0781-0.42188 2.8281-1.1719s1.1719-1.7656 1.1719-2.8281z" />
+                            <path d="m50 73h-28c-2.2109 0-4 1.7891-4 4s1.7891 4 4 4h28c2.2109 0 4-1.7891 4-4s-1.7891-4-4-4z" />
+                            <path d="m78 55h-28c-2.2109 0-4 1.7891-4 4s1.7891 4 4 4h28c2.2109 0 4-1.7891 4-4s-1.7891-4-4-4z" />
+                            <path d="m78 73h-10c-2.2109 0-4 1.7891-4 4s1.7891 4 4 4h10c2.2109 0 4-1.7891 4-4s-1.7891-4-4-4z" />
+                            <path d="m22 55c-2.2109 0-4 1.7891-4 4s1.7891 4 4 4h10c2.2109 0 4-1.7891 4-4s-1.7891-4-4-4z" />
+                            <path d="m32 19h-10c-2.2109 0-4 1.7891-4 4s1.7891 4 4 4h10c2.2109 0 4-1.7891 4-4s-1.7891-4-4-4z" />
+                            <path d="m78 37h-10c-2.2109 0-4 1.7891-4 4s1.7891 4 4 4h10c2.2109 0 4-1.7891 4-4s-1.7891-4-4-4z" />
+                          </svg>
+                          <span
+                            className={classNames(
+                              "sr-only lg:not-sr-only lg:ml-2",
+                              format === "yaml"
+                                ? "text-slate-700"
+                                : "text-slate-200"
+                            )}
+                          >
+                            YAML
+                          </span>
+                        </button>
+                      </div>
                     </div>
                   </div>
                   {format === "json" ? (
