@@ -217,7 +217,10 @@ export default function Home({ files }) {
                     <li key={f.name}>
                       <a
                         href="#"
-                        onClick={() => setFile(f)}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setFile(f);
+                        }}
                         className={classNames(
                           f.name === file.name ? "text-indigo-600" : "",
                           "rounded-md block px-0 py-2 hover:text-indigo-500"
