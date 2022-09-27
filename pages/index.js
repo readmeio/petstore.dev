@@ -4,6 +4,7 @@ import styles from "../styles/Home.module.css";
 import { promises as fs } from "fs";
 import path from "path";
 
+import GithubIcon from "../public/githubicon.js";
 import Prism from "prismjs";
 import "prismjs/components/prism-json";
 import "prismjs/components/prism-yaml";
@@ -138,12 +139,12 @@ export default function Home({ files }) {
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
               {/* Filters */}
               <form className="hidden lg:block">
-                <div className="mb-5">
+                <div className="mb-5 text-center">
                   <h1 className="text-4xl mr-4 font-bold tracking-tight text-gray-900">
                     <BuildingStorefrontIcon className="inline-block mr-3 h-11 mb-3" />
                     Petstore
                   </h1>
-                  <span>A collection of OAS example files</span>
+                  <span className="text-gray-600">A collection of OAS example files</span>
                 </div>
 
                 <div>
@@ -197,8 +198,8 @@ export default function Home({ files }) {
                         href="#"
                         onClick={() => setFile(f)}
                         className={classNames(
-                          f.name === file.name ? "text-indigo-500" : "",
-                          "rounded-md block px-0 py-2"
+                          f.name === file.name ? "text-indigo-600" : "",
+                          "rounded-md block px-0 py-2 hover:text-indigo-500"
                         )}
                       >
                         {f.name}
@@ -206,7 +207,12 @@ export default function Home({ files }) {
                     </li>
                   ))}
                 </ul>
-                <a href="https://github.com/readmeio/petstore.dev/tree/main/oas" className="block pt-5 border-t border-gray-200 pl-3 text-sm text-gray-500 hover:text-indigo-600">
+                <a
+                  href="https://github.com/readmeio/petstore.dev/tree/main/oas"
+                  className="block pt-5 border-t border-gray-200 text-sm text-gray-500 hover:text-indigo-600"
+                  target="_blank"
+                >
+                  <GithubIcon className="inline-block w-4 mr-2 mb-1" />
                   Edit specs on GitHub
                 </a>
               </form>
