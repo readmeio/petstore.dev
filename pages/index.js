@@ -456,16 +456,20 @@ export async function getStaticProps(context) {
       });
 
     const sortList = (arr) => {
-      const sortOrder = {
-        petstore: 1,
-        "petstore-simple": 2,
-        "petstore-minimal": 3,
-        "petstore-expanded": 4,
-        "readme-extensions": 5,
-      };
+      const sortOrder = [
+        "petstore",
+        "petstore-simple",
+        "petstore-minimal",
+        "petstore-expanded",
+        "readme-extensions",
+      ].reduce((result, item, index, array) => {
+        result[item] = index + 1;
+        return result;
+      }, {});
+
       return arr.sort(function compareFn(a, b) {
         const aScore = sortOrder[a.file] || a.yaml.length;
-        const bScore = sortOrder[b.file] || a.yaml.length;
+        const bScore = sortOrder[b.file] || b.yaml.length;
         if (aScore < bScore) {
           return -1;
         }
