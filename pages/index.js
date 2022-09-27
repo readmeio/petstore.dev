@@ -31,6 +31,8 @@ import {
   XMarkIcon,
   BuildingStorefrontIcon,
   LinkIcon,
+  ClipboardDocumentIcon,
+  ClipboardDocumentCheckIcon,
   CommandLineIcon,
 } from "@heroicons/react/24/outline";
 
@@ -57,6 +59,18 @@ export default function Home({ files }) {
       Prism.highlightAll();
     }
   }, [file, format, version]);
+
+  const [copied, setCopied] = useState(false);
+
+  const copy = (m) => {
+    return () => {
+      setCopied(true);
+      setTimeout(() => {
+        setCopied(false);
+      }, 800);
+      return navigator.clipboard.writeText(m);
+    };
+  };
 
   return (
     <div className="bg-white">
@@ -250,6 +264,21 @@ export default function Home({ files }) {
                     >
                       <LinkIcon className="w-5 text-white" />
                     </a>
+                    <button
+                      onClick={copy(format === "json" ? file.json : file.yaml)}
+                      target="_blank"
+                      rel="noreferrer"
+                      className={classNames(
+                        copied ? "opacity-100" : "opacity-50 ",
+                        "inline-block mr-4 text-white hover:opacity-100"
+                      )}
+                    >
+                      {copied ? (
+                        <ClipboardDocumentCheckIcon className="w-5 text-green-500" />
+                      ) : (
+                        <ClipboardDocumentIcon className="w-5" />
+                      )}
+                    </button>
                     <div className="inline-block">
                       <div
                         className="flex space-x-1 rounded-lg bg-slate-600 p-0.5"
