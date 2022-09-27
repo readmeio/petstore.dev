@@ -80,7 +80,7 @@ export default function Home({ files }) {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta
           property="og:image"
-          content="https://www.petstore.dev/public/social.png"
+          content="https://www.petstore.dev/social.png"
         />
         <link rel="shortcut icon" href="https://fav.farm/%F0%9F%90%B6" />
       </Head>
