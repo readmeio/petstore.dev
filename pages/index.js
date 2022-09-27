@@ -197,7 +197,7 @@ export default function Home({ files }) {
                         href="#"
                         onClick={() => setFile(f)}
                         className={classNames(
-                          f.name === file.name ? "bg-blue-50" : "",
+                          f.name === file.name ? "bg-indigo-50" : "",
                           "rounded-md block px-3 py-2"
                         )}
                       >
