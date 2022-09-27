@@ -74,6 +74,11 @@ export default function Home({ files }) {
 
   return (
     <div className="bg-white">
+      <Head>
+        <title>Swagger Petstore</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <link rel="shortcut icon" href="https://fav.farm/%F0%9F%90%B6" />
+      </Head>
       <div>
         {/* Mobile filter dialog */}
         <Transition.Root show={mobileFiltersOpen} as={Fragment}>
