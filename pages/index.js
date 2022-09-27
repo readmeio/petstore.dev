@@ -144,7 +144,7 @@ export default function Home({ files }) {
                     <BuildingStorefrontIcon className="inline-block mr-3 h-11 mb-3" />
                     Petstore
                   </h1>
-                  <span className="text-gray-600">A collection of OAS example files</span>
+                  <span className="text-gray-600 text-sm display block">A collection of OAS example files</span>
                 </div>
 
                 <div>
