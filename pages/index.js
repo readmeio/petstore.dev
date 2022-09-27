@@ -141,7 +141,7 @@ export default function Home({ files }) {
                 <div className="mb-5">
                   <h1 className="text-4xl mr-4 font-bold tracking-tight text-gray-900">
                     <BuildingStorefrontIcon className="inline-block mr-3 h-11 mb-3" />
-                    Pet Store
+                    Petstore
                   </h1>
                   <span>A collection of OAS example files</span>
                 </div>
@@ -167,7 +167,7 @@ export default function Home({ files }) {
                   </div>
                   <div className="hidden sm:block">
                     <div className="border-b border-gray-200">
-                      <nav className="-mb-px flex" aria-label="Tabs">
+                      <nav className="-mb-px flex w-full" aria-label="Tabs">
                         {tabs.map((tab) => (
                           <a
                             key={tab.name}
@@ -176,7 +176,7 @@ export default function Home({ files }) {
                               tab.version == version.version
                                 ? "border-indigo-500 text-indigo-600"
                                 : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300",
-                              "w-1/4 py-4 px-1 text-center border-b-2 font-medium text-sm"
+                              "w-1/3 py-4 px-1 text-center border-b-2 font-medium text-sm"
                             )}
                           >
                             {tab.name}
@@ -197,8 +197,8 @@ export default function Home({ files }) {
                         href="#"
                         onClick={() => setFile(f)}
                         className={classNames(
-                          f.name === file.name ? "bg-indigo-50 text-indigo-500" : "",
-                          "rounded-md block px-3 py-2"
+                          f.name === file.name ? "text-indigo-500" : "",
+                          "rounded-md block px-0 py-2"
                         )}
                       >
                         {f.name}
