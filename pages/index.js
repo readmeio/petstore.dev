@@ -50,6 +50,7 @@ export default function Home({ files }) {
   const [format, setFormat] = useState("json");
 
   const updateVersion = (tab) => {
+    console.log(tab, files['3.1']);
     setVersion(tab);
     setFile(files[tab.version][0]);
   };
@@ -132,7 +133,7 @@ export default function Home({ files }) {
                       className="px-2 py-3 font-medium text-gray-900"
                     >
                       {files[version.version].map((f) => (
-                        <li key={f.name}>
+                        <li key={`${version.version}/${f.file}`}>
                           <a href={f.href} className="block px-2 py-3">
                             {f.name}
                           </a>
@@ -219,7 +220,7 @@ export default function Home({ files }) {
                   className="mt-6 border-gray-200 pb-6 text-sm font-medium text-gray-900"
                 >
                   {files[version.version].map((f) => (
-                    <li key={f.name}>
+                    <li key={`${version.version}/${f.file}`}>
                       <a
                         href="#"
                         onClick={(e) => {
@@ -228,7 +229,7 @@ export default function Home({ files }) {
                         }}
                         className={classNames(
                           f.name === file.name ? "text-indigo-600" : "",
-                          "rounded-md block px-0 py-2 hover:text-indigo-500"
+                          "rounded-md block px-0 py-2 hover:text-indigo-500 text-ellipsis truncate"
                         )}
                       >
                         {f.name}
@@ -237,7 +238,7 @@ export default function Home({ files }) {
                   ))}
                 </ul>
                 <a
-                  href="https://github.com/readmeio/petstore.dev/tree/main/oas"
+                  href="https://github.com/readmeio/oas-examples"
                   className="block pt-5 border-t border-gray-200 text-sm text-gray-500 hover:text-indigo-600"
                   target="_blank"
                   rel="noreferrer"
@@ -255,7 +256,7 @@ export default function Home({ files }) {
                     {version.version !== "2.0" && (
                       <a
                         href={`https://bin.readme.com/?url=${encodeURIComponent(
-                          `https://raw.githubusercontent.com/readmeio/petstore.dev/main/oas/${version.version}/${file.file}.${format}`
+                          `https://raw.githubusercontent.com/readmeio/oas-examples/main/${version.version}/${format}/${file.file}.${format}`
                         )}`}
                         target="_blank"
                         rel="noreferrer"
@@ -265,7 +266,7 @@ export default function Home({ files }) {
                       </a>
                     )}
                     <a
-                      href={`https://raw.githubusercontent.com/readmeio/petstore.dev/main/oas/${version.version}/${file.file}.${format}`}
+                      href={`https://raw.githubusercontent.com/readmeio/oas-examples/main/${version.version}/${format}/${file.file}.${format}`}
                       target="_blank"
                       rel="noreferrer"
                       className="inline-block mr-4 opacity-50 hover:opacity-100"
@@ -397,52 +398,80 @@ export default function Home({ files }) {
 }
 
 export async function getStaticProps(context) {
-  const versions = {
-    "2.0": [
-      { name: "Petstore", file: "petstore" },
-      { name: "Petstore Minimal", file: "petstore-minimal" },
-      { name: "Petstore Simple", file: "petstore-simple" },
-      { name: "Petstore Expanded", file: "petstore-expanded" },
-      { name: "Simple API overview", file: "api-with-examples" },
-      { name: "Uber", file: "uber" },
-    ],
-    "3.0": [
-      { name: "Petstore", file: "petstore" },
-      { name: "Petstore Expanded", file: "petstore-expanded" },
-      { name: "Callback Example", file: "callback-example" },
-      { name: "Link Example", file: "link-example" },
-      { name: "Simple API overview", file: "api-with-examples" },
-      { name: "USPTO", file: "uspto" },
-    ],
-    3.1: [
-      { name: "Webhook Example", file: "webhook-example" },
-      { name: "Non-OAuth Scopes", file: "non-oauth-scopes" },
-    ],
-  };
-
-  const versionsOut = {};
+  const versions = { "2.0": false, "3.0": false, 3.1: false };
 
   for (const v in versions) {
-    const files = versions[v].map(async (f) => {
-      const filePathJson = path.join(process.cwd(), "oas", v, `${f.file}.json`);
-      const fileJson = await fs.readFile(filePathJson, "utf8");
+    const files = (
+      await fs.readdir(
+        path.join(
+          process.cwd(),
+          "node_modules",
+          "@readme/oas-examples",
+          v,
+          "json"
+        )
+      )
+    )
+      .filter((f) => f.match(/\.json/))
+      .map(async (file) => {
+        const example = file.replace(/\.json/, "");
 
-      const filePathYaml = path.join(process.cwd(), "oas", v, `${f.file}.yaml`);
-      const fileYaml = await fs.readFile(filePathYaml, "utf8");
+        const oas = require(`@readme/oas-examples/${v}/json/${example}.json`);
+        const fileJson = JSON.stringify(oas, undefined, 2);
+        const filePathYaml = path.join(
+          process.cwd(),
+          "node_modules",
+          "@readme/oas-examples",
+          v,
+          "yaml",
+          `${example}.yaml`
+        );
+        const fileYaml = await fs.readFile(filePathYaml, "utf8");
 
-      return {
-        name: f.name,
-        file: f.file,
-        json: fileJson,
-        yaml: fileYaml,
-      };
-    });
-    versionsOut[v] = await Promise.all(files);
+        const title = (example, oas) => {
+          if (example.match(/petstore/)) {
+            return titleCase(example.replace(/-/g, " "));
+          }
+          return oas.info.title;
+        };
+
+        function titleCase(str) {
+          str = str.toLowerCase().split(" ");
+          for (var i = 0; i < str.length; i++) {
+            str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
+          }
+          return str.join(" ");
+        }
+
+        return {
+          name: title(example, oas),
+          file: example,
+          json: fileJson,
+          yaml: fileYaml,
+        };
+      });
+
+    const sortList = arr => {
+      const sortOrder = {"petstore": 1, "petstore-simple": 2, "petstore-minimal": 3, "petstore-expanded": 4, "readme-extensions": 5};
+      return arr.sort(function compareFn(a, b) {
+        const aScore = sortOrder[a.file] || a.yaml.length;
+        const bScore = sortOrder[b.file] || a.yaml.length;
+        if (aScore < bScore) {
+          return -1;
+        }
+        if (aScore > bScore) {
+          return 1;
+        }
+        return 0;
+      });
+    };
+
+    versions[v] = sortList(await Promise.all(files));
   }
 
   return {
     props: {
-      files: versionsOut,
+      files: versions,
     },
   };
 }
