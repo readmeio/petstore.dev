@@ -106,10 +106,10 @@ export default function Home({ files }) {
                       role="list"
                       className="px-2 py-3 font-medium text-gray-900"
                     >
-                      {files["3.0"].map((category) => (
-                        <li key={category.name}>
-                          <a href={category.href} className="block px-2 py-3">
-                            {category.name}
+                      {files[version.version].map((f) => (
+                        <li key={f.name}>
+                          <a href={f.href} className="block px-2 py-3">
+                            {f.name}
                           </a>
                         </li>
                       ))}
@@ -146,45 +146,46 @@ export default function Home({ files }) {
                   <span>A collection of OAS example files</span>
                 </div>
 
-    <div>
-      <div className="sm:hidden">
-        <label htmlFor="tabs" className="sr-only">
-          Select a tab
-        </label>
-        {/* Use an "onChange" listener to redirect the user to the selected tab URL. */}
-        <select
-          id="tabs"
-          name="tabs"
-          className="block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
-          defaultValue={tabs.find((tab) => version.version === tab.version).name}
-        >
-          {tabs.map((tab) => (
-            <option key={tab.name}>{tab.name}</option>
-          ))}
-        </select>
-      </div>
-      <div className="hidden sm:block">
-        <div className="border-b border-gray-200">
-          <nav className="-mb-px flex" aria-label="Tabs">
-            {tabs.map((tab) => (
-              <a
-                key={tab.name}
-                onClick={() => updateVersion(tab)}
-                className={classNames(
-                  tab.version == version.version
-                    ? 'border-indigo-500 text-indigo-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300',
-                  'w-1/4 py-4 px-1 text-center border-b-2 font-medium text-sm'
-                )}
-                aria-current={tab.current ? 'page' : undefined}
-              >
-                {tab.name}
-              </a>
-            ))}
-          </nav>
-        </div>
-      </div>
-    </div>
+                <div>
+                  <div className="sm:hidden">
+                    <label htmlFor="tabs" className="sr-only">
+                      Select a tab
+                    </label>
+                    {/* Use an "onChange" listener to redirect the user to the selected tab URL. */}
+                    <select
+                      id="tabs"
+                      name="tabs"
+                      className="block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                      defaultValue={
+                        tabs.find((tab) => version.version === tab.version).name
+                      }
+                    >
+                      {tabs.map((tab) => (
+                        <option key={tab.name}>{tab.name}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="hidden sm:block">
+                    <div className="border-b border-gray-200">
+                      <nav className="-mb-px flex" aria-label="Tabs">
+                        {tabs.map((tab) => (
+                          <a
+                            key={tab.name}
+                            onClick={() => updateVersion(tab)}
+                            className={classNames(
+                              tab.version == version.version
+                                ? "border-indigo-500 text-indigo-600"
+                                : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300",
+                              "w-1/4 py-4 px-1 text-center border-b-2 font-medium text-sm"
+                            )}
+                          >
+                            {tab.name}
+                          </a>
+                        ))}
+                      </nav>
+                    </div>
+                  </div>
+                </div>
 
                 <ul
                   role="list"
@@ -205,6 +206,9 @@ export default function Home({ files }) {
                     </li>
                   ))}
                 </ul>
+                <a href="https://github.com/readmeio/petstore.dev" className="block pt-5 border-t border-gray-200 pl-3 text-sm text-gray-500 hover:text-indigo-600">
+                  Edit specs on GitHub
+                </a>
               </form>
 
               {/* Product grid */}
@@ -337,7 +341,7 @@ export async function getStaticProps(context) {
       { name: "Simple API overview", file: "api-with-examples" },
       { name: "USPTO", file: "uspto" },
     ],
-    "3.1": [
+    3.1: [
       { name: "Webhook Example", file: "webhook-example" },
       { name: "Non-OAuth Scopes", file: "non-oauth-scopes" },
     ],
@@ -347,20 +351,10 @@ export async function getStaticProps(context) {
 
   for (const v in versions) {
     const files = versions[v].map(async (f) => {
-      const filePathJson = path.join(
-        process.cwd(),
-        "oas",
-        v,
-        `${f.file}.json`
-      );
+      const filePathJson = path.join(process.cwd(), "oas", v, `${f.file}.json`);
       const fileJson = await fs.readFile(filePathJson, "utf8");
 
-      const filePathYaml = path.join(
-        process.cwd(),
-        "oas",
-        v,
-        `${f.file}.yaml`
-      );
+      const filePathYaml = path.join(process.cwd(), "oas", v, `${f.file}.yaml`);
       const fileYaml = await fs.readFile(filePathYaml, "utf8");
 
       return {
