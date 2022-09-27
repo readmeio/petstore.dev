@@ -139,7 +139,7 @@ export default function Home({ files }) {
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
               {/* Filters */}
               <form className="hidden lg:block">
-                <div className="mb-5 text-center">
+                <div className="mb-5">
                   <h1 className="text-4xl mr-4 font-bold tracking-tight text-gray-900">
                     <BuildingStorefrontIcon className="inline-block mr-3 h-11 mb-3" />
                     Petstore
