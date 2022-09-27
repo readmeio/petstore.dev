@@ -218,6 +218,7 @@ export default function Home({ files }) {
                   href="https://github.com/readmeio/petstore.dev/tree/main/oas"
                   className="block pt-5 border-t border-gray-200 text-sm text-gray-500 hover:text-indigo-600"
                   target="_blank"
+                  rel="noreferrer"
                 >
                   <GithubIcon className="inline-block w-4 mr-2 mb-1" />
                   Edit specs on GitHub
@@ -235,6 +236,7 @@ export default function Home({ files }) {
                           `https://raw.githubusercontent.com/readmeio/petstore.dev/main/oas/${version.version}/${file.file}.${format}`
                         )}`}
                         target="_blank"
+                        rel="noreferrer"
                         className="inline-block mr-4 opacity-50 hover:opacity-100"
                       >
                         <CommandLineIcon className="w-5 text-white" />
@@ -243,6 +245,7 @@ export default function Home({ files }) {
                     <a
                       href={`https://raw.githubusercontent.com/readmeio/petstore.dev/main/oas/${version.version}/${file.file}.${format}`}
                       target="_blank"
+                      rel="noreferrer"
                       className="inline-block mr-4 opacity-50 hover:opacity-100"
                     >
                       <LinkIcon className="w-5 text-white" />
