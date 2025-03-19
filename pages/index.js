@@ -45,7 +45,7 @@ export default function Home({ files }) {
 
   const tabs = Object.keys(files).map((k) => ({ name: `v${k}`, version: k }));
 
-  const [version, setVersion] = useState(tabs[1]);
+  const [version, setVersion] = useState(tabs[2]);
   const [file, setFile] = useState(files[version.version][0]);
   const [format, setFormat] = useState("json");
 
@@ -208,7 +208,7 @@ export default function Home({ files }) {
                               tab.version == version.version
                                 ? "border-indigo-500 text-indigo-600"
                                 : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300",
-                              "w-1/3 py-4 px-1 text-center border-b-2 font-medium text-sm cursor-pointer"
+                              "w-1/3 py-4 px-1 text-center border-b-2 font-medium text-sm cursor-pointer",
                             )}
                           >
                             {tab.name}
@@ -233,7 +233,7 @@ export default function Home({ files }) {
                         }}
                         className={classNames(
                           f.name === file.name ? "text-indigo-600" : "",
-                          "rounded-md block px-0 py-2 hover:text-indigo-500 text-ellipsis truncate"
+                          "rounded-md block px-0 py-2 hover:text-indigo-500 text-ellipsis truncate",
                         )}
                       >
                         {f.name}
@@ -260,7 +260,7 @@ export default function Home({ files }) {
                     {version.version !== "2.0" && (
                       <a
                         href={`https://bin.readme.com/?url=${encodeURIComponent(
-                          `https://raw.githubusercontent.com/readmeio/oas-examples/main/${version.version}/${format}/${file.file}.${format}`
+                          `https://raw.githubusercontent.com/readmeio/oas-examples/main/${version.version}/${format}/${file.file}.${format}`,
                         )}`}
                         target="_blank"
                         rel="noreferrer"
@@ -283,7 +283,7 @@ export default function Home({ files }) {
                       rel="noreferrer"
                       className={classNames(
                         copied ? "opacity-100" : "opacity-50 ",
-                        "inline-block mr-4 text-white hover:opacity-100"
+                        "inline-block mr-4 text-white hover:opacity-100",
                       )}
                     >
                       {copied ? (
@@ -301,7 +301,7 @@ export default function Home({ files }) {
                         <button
                           className={classNames(
                             format === "json" ? "bg-white shadow" : "",
-                            "flex items-center rounded-md py-[0.4375rem] pl-2 pr-2 text-sm font-semibold lg:pr-3"
+                            "flex items-center rounded-md py-[0.4375rem] pl-2 pr-2 text-sm font-semibold lg:pr-3",
                           )}
                           id="headlessui-tabs-tab-2"
                           role="tab"
@@ -316,7 +316,7 @@ export default function Home({ files }) {
                               format === "json"
                                 ? "fill-indigo-300"
                                 : "fill-slate-300",
-                              "h-5 w-5 flex-none"
+                              "h-5 w-5 flex-none",
                             )}
                             viewBox="0 0 100 100"
                             xmlns="http://www.w3.org/2000/svg"
@@ -331,7 +331,7 @@ export default function Home({ files }) {
                               "sr-only lg:not-sr-only lg:ml-2",
                               format === "json"
                                 ? "text-slate-700"
-                                : "text-slate-200"
+                                : "text-slate-200",
                             )}
                           >
                             JSON
@@ -340,7 +340,7 @@ export default function Home({ files }) {
                         <button
                           className={classNames(
                             format === "yaml" ? "bg-white shadow" : "",
-                            "flex items-center rounded-md py-[0.4375rem] pl-2 pr-2 text-sm font-semibold lg:pr-3"
+                            "flex items-center rounded-md py-[0.4375rem] pl-2 pr-2 text-sm font-semibold lg:pr-3",
                           )}
                           id="headlessui-tabs-tab-3"
                           role="tab"
@@ -354,7 +354,7 @@ export default function Home({ files }) {
                               format === "yaml"
                                 ? "fill-indigo-300"
                                 : "fill-slate-300",
-                              "h-5 w-5 flex-none"
+                              "h-5 w-5 flex-none",
                             )}
                             viewBox="0 0 100 100"
                             strokeWidth="1.5"
@@ -376,7 +376,7 @@ export default function Home({ files }) {
                               "sr-only lg:not-sr-only lg:ml-2",
                               format === "yaml"
                                 ? "text-slate-700"
-                                : "text-slate-200"
+                                : "text-slate-200",
                             )}
                           >
                             YAML
@@ -412,8 +412,8 @@ export async function getStaticProps(context) {
           "node_modules",
           "@readme/oas-examples",
           v,
-          "json"
-        )
+          "json",
+        ),
       )
     )
       .filter((f) => f.match(/\.json/))
@@ -428,7 +428,7 @@ export async function getStaticProps(context) {
           "@readme/oas-examples",
           v,
           "yaml",
-          `${example}.yaml`
+          `${example}.yaml`,
         );
         const fileYaml = await fs.readFile(filePathYaml, "utf8");
 
